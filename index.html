@@ -1,21 +1,226 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>SNSテストページ</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Looking Up at the Sky-あの空を見上げて</title>
+  <meta name="description" content="この楽曲は、力強いロックの要素と映画的な雰囲気を融合させ、人里離れた世界で立ち、空の向こうにある何かを信じ続けているような感覚を表現している。">
+  <meta property="og:title" content="Looking Up at the Sky-あの空を見上げて">
+  <meta property="og:description" content="この楽曲は、力強いロックの要素と映画的な雰囲気を融合させ、人里離れた世界で立ち、空の向こうにある何かを信じ続けているような感覚を表現している。">
+  <meta property="og:type" content="website">
+
+  <!-- Google Analytics tag can be pasted here. -->
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #05060b;
+      --text: #fbfcff;
+      --muted: #b9c0cf;
+      --soft: rgba(255, 255, 255, 0.1);
+      --panel: rgba(12, 15, 24, 0.7);
+      --youtube: #c23a42;
+      --youtube-dark: #8d2630;
+      --spotify: #1db954;
+      --apple: #f45d8c;
+      --amazon: #1ba7df;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% -10%, rgba(255, 0, 51, 0.34), transparent 18rem),
+        radial-gradient(circle at 15% 18%, rgba(125, 211, 252, 0.22), transparent 16rem),
+        radial-gradient(circle at 88% 72%, rgba(244, 93, 140, 0.2), transparent 18rem),
+        linear-gradient(180deg, #101522 0%, #080a10 48%, #040509 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at center, black, transparent 72%);
+    }
+
+    main {
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 18px;
+    }
+
+    .link-card {
+      position: relative;
+      width: min(100%, 460px);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(18, 21, 31, 0.9), rgba(7, 9, 15, 0.94));
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.52);
+      padding: 22px;
+    }
+
+    .link-card::before {
+      content: "";
+      position: absolute;
+      inset: -40% -20% auto;
+      height: 220px;
+      background: radial-gradient(circle, rgba(255,255,255,0.26), transparent 58%);
+      opacity: 0.7;
+      transform: rotate(-10deg);
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .tagline {
+      display: inline-flex;
+      max-width: 100%;
+      margin: 0 0 18px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.07);
+      color: #d7ecff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 13.5em;
+      font-size: clamp(1.48rem, 6.7vw, 2.25rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+      text-wrap: balance;
+      overflow-wrap: break-word;
+      word-break: keep-all;
+    }
+
+    .catch-copy {
+      margin: 14px 0 0;
+      color: #fff;
+      font-size: clamp(0.92rem, 3.3vw, 1.05rem);
+      font-weight: 560;
+      line-height: 1.35;
+    }
+
+    .description {
+      display: -webkit-box;
+      margin: 18px 0 0;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 5;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.65;
+      white-space: pre-wrap;
+    }
+
+    .youtube-button {
+      display: flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-top: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      gap: 9px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--youtube), var(--youtube-dark));
+      box-shadow: 0 10px 22px rgba(127, 31, 40, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      color: white;
+      font-size: 0.96rem;
+      font-weight: 850;
+      text-decoration: none;
+      transition: transform 160ms ease, filter 160ms ease;
+    }
+
+    .youtube-button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.04);
+    }
+
+    .play-mark {
+      display: inline-grid;
+      width: 22px;
+      height: 22px;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.16);
+      font-size: 0.72rem;
+      line-height: 1;
+    }
+
+    .platforms {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .platform-button {
+      display: flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.055);
+      color: #d8deeb;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .spotify { border-color: rgba(29, 185, 84, 0.34); background: rgba(29, 185, 84, 0.08); }
+    .apple { border-color: rgba(244, 93, 140, 0.34); background: rgba(244, 93, 140, 0.08); }
+    .amazon { border-color: rgba(27, 167, 223, 0.34); background: rgba(27, 167, 223, 0.08); }
+
+    .micro-note {
+      margin: 16px 0 0;
+      color: rgba(255, 255, 255, 0.52);
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
+    @media (min-width: 560px) {
+      main { padding: 32px; }
+      .link-card { padding: 30px; }
+      .platforms { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+  </style>
 </head>
-
 <body>
-
-<h1>Ayumi SNSテストページ</h1>
-
-<p>
-Threadsから誘導テスト中です。
-</p>
-
-<p>
-ここに楽天やYouTubeのリンクを設置します。
-</p>
-
+  <main>
+    <section class="link-card" aria-label="Music links">
+      <div class="content">
+        <p class="tagline">AI Music</p>
+        <h1>Looking Up at the Sky-あの空を見上げて</h1>
+        <p class="catch-copy">空を見上げることは、希望や回復力、そして前進し続ける力についての感動的なロックソングです。</p>
+        <a class="youtube-button " href="https://youtu.be/Gj_ecI8JfTQ?si=m_tKTPDNa_GIA356" target="_blank" rel="noopener noreferrer"><span class="play-mark" aria-hidden="true">$25B6</span><span>YouTube</span></a>
+        <p class="description">この楽曲は、力強いロックの要素と映画的な雰囲気を融合させ、人里離れた世界で立ち、空の向こうにある何かを信じ続けているような感覚を表現している。</p>
+        <div class="platforms" aria-label="Streaming links">
+          <a class="platform-button spotify" href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbFQwM083bk1IeDdEYWNXaHctZURxeU95Y2RPQXxBQ3Jtc0ttS0R4eUJEMG9BbFJEdEtPQmxRLVNQWjllT2l4ZUZLVXg4RzRUOHFZOGR4bzF5c1kzT3BSOG82bkU2a2ctV3M5eDNVMEVSOEV1LWlJTmUwQkpDOEhoVnFoV1JoYVRRT2ZCVEhKVm1JczhmTnhkc3hnaw&amp;q=https%3A%2F%2Fx.gd%2Fi3kxI&amp;v=Gj_ecI8JfTQ" target="_blank" rel="noopener noreferrer">Spotify</a>
+          <a class="platform-button apple" href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbU8wQXBQWjI5T05oc2Zic204T2xoaHNTQXRfZ3xBQ3Jtc0tuek5CcnFDWU5lSFRyVHZMblJvQUQyQnc5aG54LWx3NF9iR2VZRDN6RU92OUVHZVc3eEFpODJNRUphX2Z5eWc0dWVmRDJaNzhTazlLTW1LMXFCMnUzeEtHTzdRV0ZJSVI5T1QwMXhVRGxTZTNLbHROTQ&amp;q=https%3A%2F%2Fx.gd%2Fx8vYl&amp;v=Gj_ecI8JfTQ" target="_blank" rel="noopener noreferrer">Apple Music</a>
+          <a class="platform-button amazon" href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbGdFYWhwMmhZNURtUTVwenNhV2lPTmFDNUNZZ3xBQ3Jtc0tsTFE2V2ZVOXRCRnYtdmhMX0tjT08tNDQ5VlhzTDVlTFNnSGZHZzFvTUN6VzNtSWxlWUhqX19tbldZN0F5UWhVY0VrazJtZnN6WW82RkRJejhrcjlfQTdvb3hVM0t3ZjF5WHE5SldSTVhZU3JYNUplaw&amp;q=https%3A%2F%2Fx.gd%2FX2uLo&amp;v=Gj_ecI8JfTQ" target="_blank" rel="noopener noreferrer">Amazon Music</a>
+        </div>
+        <p class="micro-note">Tap once. Let the sound do the rest.</p>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
